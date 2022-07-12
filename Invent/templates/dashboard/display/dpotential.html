@@ -1,0 +1,74 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title%} Potentials PAGE {% endblock %}
+
+{% block content %}
+
+<!-- 
+fields = [
+            'company',
+            'potential',
+            'addresable_market_INR',
+            'served_market_INR',
+            'year',
+            'OEM_oOEM',
+        ]
+
+ -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title Info</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+</head>
+<body>
+
+    <center>
+        <div class="container">
+            <div class="row my-4">
+                <div class="col-md-4">
+    
+                </div>
+                <div class="col-md-8">
+                    <table class="table bg-white">
+                        <thead class="bg-info">
+                            <tr class="text-white">
+                                <th scope="col">Company Name</th>
+                                <th scope="col">Potential</th>
+                                <th scope="col">Addresable Market INR</th>
+                                <th scope="col">Served Market INR</th>
+                                <th scope="col">Year</th>
+                                <th scope="col">OEM/oOEM</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for instance in data %}
+                            <tr scope="row">
+                                <td>{{ instance.fields.company }}</td>
+                                <td>{{ instance.fields.potential }}</td>
+                                <td>{{ instance.fields.addresable_market_INR }}</td>
+                                <td>{{ instance.fields.served_market_INR }}</td>
+                                <td>{{ instance.fields.year }}</td>
+                                <td>{{ instance.fields.OEM_oOEM }}</td>
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    
+        </div>
+
+    </center>
+    
+    
+</body>
+</html>
+
+<!--End Table-->
+{% endblock %}

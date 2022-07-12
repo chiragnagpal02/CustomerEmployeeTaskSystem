@@ -1,0 +1,61 @@
+{% extends 'partials/base.html' %}
+{% block title%} EMPLOYEE {% endblock %}
+
+{% block content %}
+<head>
+    <style>
+        body {
+            background-color: rgb(188, 210, 230);
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .form1 {
+            font-size:larger;
+            margin: 0 auto;
+        }
+        .border.bg-white.p-3 {
+          border-radius: 5px;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <form class="form1" method="post"> {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="Add"/>
+    </form> -->
+
+    <div class="container">
+      <div class="row my-4">
+        <div class="col-md-4">
+            <div class="border bg-white p-3">
+              <form method="post">
+                {% csrf_token %}
+
+                <div class="form-group">
+                  <label for="ide">Employee ID:</label>
+                  <div class="input">
+
+                  </div>
+                  {{ form.id }}
+                  <!-- < input type="number" class="form-control" id="ide" placeholder="Enter ID" name="id"> -->
+                </div>
+
+                <div class="form-group">
+                  <label for="pwd">Employee Name:</label>
+                  <!-- <input type="text" class="form-control" id="pwd" placeholder="Enter Employee Name" name="name"> -->
+                  {{ form.employee_name }}
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+</body>
+ 
+{% endblock %}

@@ -1,0 +1,18 @@
+body {
+    background-color: lightcyan;
+    color: blue;
+}
+
+.mycard:hover {
+    transform: scale(1,1);
+    transition: 0.2s ease-in-out; 
+}
+
+table {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: aliceblue;
+}
+
+.styled-table {
+    border: 1;
+}

@@ -1,0 +1,133 @@
+{% extends 'partials/base.html' %}
+{% block title%} CUSTOMER {% endblock %}
+
+{% block content %}
+<head>
+    <style>
+        body {
+            background-color: rgb(188, 210, 230);
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .thisone{
+          color: white;
+          background-color: black;
+          padding: 5px;
+          border-radius: 15%;
+        }
+        
+        .thisone:hover{
+          color: black;
+          background-color: white;
+        }
+        .border.bg-white.p-4 {
+          border-radius: 5px;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+      <div class="container">
+        <div class="row my-4">
+          <div class="col-md-9">
+              <div class="border bg-white p-4">
+                <form method="post">
+                  {% csrf_token %}
+  
+                  <div class="form-group">
+                    <h5>Add new Company : <a class="thisone" href="{% url 'customer' %}">ADD</a></h4>
+                    <label for="pwd">Company Name:</label>
+                    <div class="input">
+  
+                    </div>
+                    <!-- <input type="text" class="form-control" id="pwd" placeholder="Enter Employee Name" name="name"> -->
+                    {{ form.company }}
+                  </div>
+
+                  <div class="form-group">
+                    <label for="pwd">Served/Unserved:</label>
+                    <div class="input">
+  
+                    </div>
+                    <!-- <input type="text" class="form-control" id="pwd" placeholder="Enter Employee Name" name="name"> -->
+                    {{ form.served_unserved }}
+                  </div>
+
+                  <div class="form-group">
+                    <label for="pwd">Addressibility:</label>
+                    <div class="input">
+  
+                    </div>
+                    <!-- <input type="text" class="form-control" id="pwd" placeholder="Enter Employee Name" name="name"> -->
+                    {{ form.addressibility }}
+                  </div>
+
+                  <div class="form-group">
+                    <label for="pwd">Addressibility Calculated:</label>
+                    <div class="input">
+  
+                    </div>
+                    <!-- <input type="text" class="form-control" id="pwd" placeholder="Enter Employee Name" name="name"> -->
+                    {{ form.addressibility_calc}}
+                  </div>
+
+                  <div class="form-group">
+                    <label for="pwd">BU:</label>
+                    <div class="input">
+  
+                    </div>
+                    <!-- <input type="text" class="form-control" id="pwd" placeholder="Enter Employee Name" name="name"> -->
+                    {{ form.BU }}
+                  </div>
+
+                  <div class="form-group">
+                    <label for="pwd">Unit Name:</label>
+                    <div class="input">
+  
+                    </div>
+                    <!-- <input type="text" class="form-control" id="pwd" placeholder="Enter Employee Name" name="name"> -->
+                    {{ form.unit }}
+                  </div>
+
+                  <div class="form-group">
+                    <label for="pwd">Business Vertical:</label>
+                    <div class="input">
+  
+                    </div>
+                    <!-- <input type="text" class="form-control" id="pwd" placeholder="Enter Employee Name" name="name"> -->
+                    {{ form.business_vertical }}
+                  </div>
+
+                  <div class="form-group">
+                    <label for="pwd">Fleet Categorization:</label>
+                    <div class="input">
+  
+                    </div>
+                    <!-- <input type="text" class="form-control" id="pwd" placeholder="Enter Employee Name" name="name"> -->
+                    {{ form.fleet_categorization }}
+                  </div>
+
+                  <div class="form-group">
+                    <label for="pwd">ISV FLEET BU UNIT:</label>
+                    <div class="input">
+  
+                    </div>
+                    <!-- <input type="text" class="form-control" id="pwd" placeholder="Enter Employee Name" name="name"> -->
+                    {{ form.ISV_fleet_BU_Input }}
+                  </div>
+  
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+     
+</body>
+
+ 
+{% endblock %}

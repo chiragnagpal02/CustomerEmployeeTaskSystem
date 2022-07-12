@@ -1,0 +1,86 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title%} STAFF PAGE {% endblock %}
+
+{% block content %}
+
+<!-- 
+fields = [
+            'company',
+            'served_unserved',
+            'addressibility',
+            'addressibility_calc',
+            'BU',
+            'unit',
+            'business_vertical',
+            'fleet_categorization',
+            'ISV_fleet_BU_Input'
+        ]
+
+ -->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title Info</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+    <center>
+        <div class="container" style="text-align: left;">
+            <div class="row my-4">
+                <div class="col-md-4">
+    
+                </div>
+                <div class="col-md-8">
+                    <table class="table bg-white">
+                        <thead class="bg-info">
+                            <tr class="text-white">
+                                <th scope="col">ID</th>
+                                <th scope="col">Company</th>
+                                <th scope="col">Served/Unserved</th>
+                                <th scope="col">Addressibility</th>
+                                <th scope="col">Addressibility Calculated</th>
+                                <th scope="col">BU</th>
+                                <th scope="col">Unit</th>
+                                <th scope="col">Business Vertical</th>
+                                <th scope="col">Fleet Categorization</th>
+                                <th scope="col">ISV Fleet BU Input</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for instance in data %}
+                            <tr scope="row">
+                                <td>{{ instance.pk }}</td>
+                                <td>{{ instance.fields.company }}</td>
+                                <td>{{ instance.fields.served_unserved }}</td>
+                                <td>{{ instance.fields.addressibility }}</td>
+                                <td>{{ instance.fields.addressibility_calc }}</td>
+                                <td>{{ instance.fields.BU }}</td>
+                                <td>{{ instance.fields.Unit }}</td>
+                                <td>{{ instance.fields.business_vertical }}</td>
+                                <td>{{ instance.fields.fleet_categorization }}</td>
+                                <td>{{ instance.fields.ISV_fleet_BU_Input }}</td>
+                                
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    
+        </div>
+
+    </center>
+
+    
+</body>
+</html>
+
+<!--End Table-->
+{% endblock %}

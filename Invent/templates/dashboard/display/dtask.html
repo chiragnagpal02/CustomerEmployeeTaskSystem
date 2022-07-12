@@ -1,0 +1,60 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title%} STAFF PAGE {% endblock %}
+
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title Info</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+</head>
+<body>
+    <center>
+        <div class="container">
+            <div class="row my-4">
+                <div class="col-md-4">
+    
+                </div>
+                <div class="col-md-8">
+                    <table class="table bg-white">
+                        <thead class="bg-info">
+                            <tr class="text-white">
+                                <th scope="col">Task ID</th>
+                                <th scope="col">Task Name</th>
+                                <th scope="col">Target Definition</th>
+                                <th scope="col">Start Date</th>
+                                <th scope="col">End Date</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for instance in data %}
+                            <tr scope="row">
+                                <td>{{ instance.fields.id }}</td>
+                                <td>{{ instance.pk }}</td>
+                                <td>{{ instance.fields.target_definition }}</td>
+                                <td>{{ instance.fields.start_date }}</td>
+                                <td>{{ instance.fields.end_date }}</td>
+                                
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    
+        </div>
+
+    </center>
+    
+    
+</body>
+</html>
+
+<!--End Table-->
+{% endblock %}

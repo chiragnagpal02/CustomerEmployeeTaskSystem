@@ -1,0 +1,35 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title%} Give Customer {% endblock %}
+
+{% block content %}
+
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post" action="post/">
+        {% csrf_token %}
+        Customer ID : <input type="number" name="cust_id">
+        <input type="submit" value="Get Name">
+    </form>
+
+    <div id="result_panel">
+        {% if no_results %}
+            No results returned for <q>{{ no_result }}</q>
+        {% else %}
+            Customer is  {{ result }}
+        {% endif %}
+    </div>
+
+    
+</body>
+</html>
+
+{% endblock %}

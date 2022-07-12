@@ -1,0 +1,73 @@
+{% extends 'partials/base.html' %}
+{% block title%} EMPLOYEE {% endblock %}
+
+{% block content %}
+<head>
+    <style>
+        body {
+            background-color: rgb(188, 210, 230);
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .form1 {
+            font-size:larger;
+            margin: 0 auto;
+        }
+        .border.bg-white.p-3 {
+          border-radius: 5px;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+    </style>
+</head>
+
+<body>
+    
+
+      <div class="container" style="margin-top: 2%;">
+        <div class="row my-6">
+          <div class="col-md-9">
+              <div class="border bg-white p-3">
+                <form method="post">
+                  {% csrf_token %}
+
+                  <div class="form-group">
+                    <label for="pwd">Employee Name:</label>
+                    <div class="input">
+  
+                    </div>
+                    <!-- <input type="text" class="form-control" id="pwd" placeholder="Enter Employee Name" name="name"> -->
+                    {{ form.employee_name }}
+                  </div>
+
+                  <div class="form-group">
+                    <label for="pwd">Company Name:</label>
+                    <div class="input">
+  
+                    </div>
+                    <!-- <input type="text" class="form-control" id="pwd" placeholder="Enter Employee Name" name="name"> -->
+                    {{ form.company }}
+                  </div>
+                  
+                  <div class="form-group">
+                    <h5>Add new Task : <a class="thisone" href="{% url 'task' %}">ADD</a></h4>
+                    <label for="ide">Task Name:</label>
+                    <div class="input">
+  
+                    </div>
+                    {{ form.task_name }}
+                    <!-- < input type="number" class="form-control" id="ide" placeholder="Enter ID" name="id"> -->
+                  </div>
+  
+                  
+
+                  
+  
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+     
+</body>
+ 
+{% endblock %}
