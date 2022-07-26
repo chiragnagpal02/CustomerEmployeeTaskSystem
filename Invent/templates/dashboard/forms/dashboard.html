@@ -1,0 +1,39 @@
+{% extends 'partials/base_2.html' %}
+{% block title%} DASHBOARD {% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 3%;">
+    <div class="jumbotron">
+        <span style="font-size: 50px; text-align: center;" id="hello-msg">{{ request.user.first_name.title }} {{ request.user.last_name.title }}'s Statistics</span>
+    </div>
+    
+</div>
+
+
+<div class="container">
+    <div class="row my-4">
+        <div class="col md-4">
+            <table class="table bg-light">
+                <thead class="bg-info">
+                    <tr class="text-white">
+                        <th scope="col">Resistered Employees</th>
+                        <th scope="col">Resistered Customers</th>
+                        <th scope="col">Resistered Tasks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row">{{ empcount }}</td>
+                        <td scope="row">{{ custcount }}</td>
+                        <td scope="row">{{ taskcount }}</td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

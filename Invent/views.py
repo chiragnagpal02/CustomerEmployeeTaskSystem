@@ -1,16 +1,89 @@
-from urllib.request import Request
-from django.views.generic import CreateView
-from django.shortcuts import render
+
+from multiprocessing import context, managers
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
+import requests
 from django.core import serializers
 from .models import Customer, Employee, Task, AllotTask, CustomerInformation, BusinessPotential
 from django.http import HttpResponse
-from .forms import AllotTaskCreateForm, EmployeeCreateForm, CustomerCreateForm, CustomerInfoCreateForm, TaskCreateForm, TeamsCreateForm, PotentialCreateForm
+from .forms import AllotTaskCreateForm, EmployeeCreateForm, CustomerCreateForm, CustomerInfoCreateForm, TaskCreateForm, TeamsCreateForm, PotentialCreateForm, CreateUserForm
 
+
+
+API_KEY = "1ec33832bb424bee9d5f39dd9aba6204"
 # Create your views here.
 # request -> response 
 
+def registerPage(request):
+    form = CreateUserForm() 
+
+    if request.method == "POST":
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            user = form.cleaned_data.get("username")
+            messages.success(request, 'Account was created for ' + user)
+            return redirect('login')
+
+    context = {
+        "form" : form
+        }
+    return render(request, "dashboard/forms/register.html", context)
+
+def loginPage(request):
+
+    if request.method == 'POST' :
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+
+        user = authenticate(request, username = username, password = password)
+
+
+        if user is not None:
+            login(request, user)
+            return redirect('index')
+        else :
+             messages.info(request, 'Username OR Password is incorrect')
+
+    context = {}
+    return render(request, "dashboard/forms/login.html", context) 
+
+def logoutUser(request):
+    return redirect('login')
+
+def give_news(request):
+
+    url = f'https://newsapi.org/v2/top-headlines?category=science&country=in&from=2022-07-13&sortBy=popularity&apiKey={API_KEY}'
+
+    response = requests.get(url)
+    data = response.json()
+
+    articles = data['articles']
+
+    context = {
+        'articles' : articles,
+        'data' : data
+    }
+
+    return render(request, "dashboard/display/news.html", context)
+
+
 def index(request):
-    return render(request, "dashboard/index.html")
+    emp_count = Employee.objects.count()
+    cust_count = Customer.objects.count()
+    task_count = Task.objects.count()
+
+    context = {
+        'empcount' : emp_count,
+        'custcount' : cust_count,
+        'taskcount' : task_count
+    }
+
+    return render(request, "dashboard/index.html", context)
 
 def staff(request):
     return render(request, "dashboard/staff.html")
@@ -31,6 +104,9 @@ def customer_create_view(request):
         'form': form
     }
     return render(request, "dashboard/forms/customer.html", context)
+
+def dashboard(request):
+    return render(request, "dashboard/forms/dashboard.html")
 
 def customer_info_create_view(request):
     form = CustomerInfoCreateForm(request.POST or None)
@@ -90,13 +166,44 @@ def allot_task_create_view(request):
 
 def employee_create_view(request):
     form = EmployeeCreateForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        form = EmployeeCreateForm()
+    if request.method == 'POST':
+        if form.is_valid():
+            post = form.save(commit=False)
+            name = f"{request.user.first_name.title()} {request.user.last_name.title()}" 
+            print(name)
+            post.manager_name = name
+            post.save()
+            form = EmployeeCreateForm()
+    # form = EmployeeCreateForm(request.POST or None)
+    # if form.is_valid():
+    #     # obj = form.save(commit=False) # Return an object without saving to the DB
+    #     name = request.user.first_name.title
+    #     print(name)
+    #     print(form['manager_name'].value())
+    #     form.data['manager_name'] = name # Add an author field which will contain current user's id
+    #     form.save() # Save the final "real form" to the DB
+    #     form = EmployeeCreateForm()
 
     context = {
-        'form': form
+        'form' : form
     }
+
+    # if request.method == "POST":
+    #     if request.user.is_authenticated:
+
+    #         form = EmployeeCreateForm(request.POST)
+
+    #         if form.is_valid():
+    #             obj = form.save(commit=False) # Return an object without saving to the DB
+    #             obj.manager_name = User.objects.get(pk=request.user.id) # Add an author field which will contain current user's id
+    #             obj.save() # Save the final "real form" to the DB
+    #             form = EmployeeCreateForm()
+    #             # context = {'form':form}
+    #         else:
+    #             print("ERROR : Form is invalid")
+    #             print(form.errors)
+
+    
     return render(request, "dashboard/forms/employee.html", context)
 
 
@@ -134,6 +241,8 @@ def customer_detail_view(request):
 
     return render(request, "dashboard/display/dcustomer.html", context)
 
+
+
 def potential_detail_view(request):
     data = serializers.serialize("python", BusinessPotential.objects.all())
     context = {
@@ -153,6 +262,63 @@ def customer_info_detail_view(request):
 def customer_details(request):
     return render(request, "dashboard/display/giveCust.html")
 
+
+def customer_specific_by_parent(request):
+    if request.method == "POST":
+        parent_new = request.POST.get('new_parent')
+        print(parent_new)
+        data = Customer.objects.filter(parent__icontains = parent_new)
+        print(data)
+        ids = []
+
+        # for query in data:
+        #     if len(data) > 1:
+        #         id = Customer.objects.get()
+
+        context = {
+            'data' : data,
+        }
+
+        return render(request, "dashboard/display/finale.html", context)
+
+def customer_specific_by_company(request):
+    if request.method == "POST":
+        company_new = request.POST.get('new_company')
+        dta = Customer.objects.filter(company__icontains = company_new)
+        ids = []
+
+        # for query in data:
+        #     if len(data) > 1:
+        #         id = Customer.objects.get()
+        
+        print(dta)
+
+        context = {
+            'data' : dta,
+            'company' : company_new
+        }
+
+        return render(request, "dashboard/display/finale_c.html", context)
+
+def employee_specific_by_manager(request):
+    if request.method == "POST":
+        manager_new = request.POST.get('new_manager')
+        data = Employee.objects.filter(manager_name__icontains = manager_new)
+
+        # for query in data:
+        #     if len(data) > 1:
+        #         id = Customer.objects.get()
+        
+        print(data)
+
+        context = {
+            'data' : data,
+            
+        }
+
+        return render(request, "dashboard/display/finale_m.html", context)
+
+    
 def find_customer_details(request):
     context_dict = {}
     if request.method == 'POST':
@@ -165,4 +331,15 @@ def find_customer_details(request):
 
     return render(request, "dashboard/display/giveCust.html", context_dict)
 
+def dashboard_statistics(request):
+    emp_count = Employee.objects.count()
+    cust_count = Customer.objects.count()
+    task_count = Task.objects.count()
 
+    context = {
+        'empcount' : emp_count,
+        'custcount' : cust_count,
+        'taskcount' : task_count
+    }
+
+    return render(request, "dashboard/forms/dashboard.html", context)

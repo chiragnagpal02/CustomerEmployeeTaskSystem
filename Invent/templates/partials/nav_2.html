@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg navbar-info bg-info">
+    <div class="container">
+        <a class="navbar-brand text-white" href="{% url 'index' %}">SIEMENS MANAGER</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="{% url 'index' %}"> Assign <span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <!-- <li class="nav-item active">
+                    <a class="nav-link text-white" href="{% url 'employee' %}"> My Sales Team <span
+                            class="sr-only">(current)</span></a>
+                </li> 
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="{% url 'customerinfo' %}"> My Potential <span
+                            class="sr-only">(current)</span></a>
+                </li> 
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="{% url 'team' %}"> My Sales <span
+                            class="sr-only">(current)</span></a>
+                </li> 
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="{% url 'potentials' %}"> My Employees <span
+                            class="sr-only">(current)</span></a>
+                </li> 
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="{% url 'allot_task' %}"> OE <span
+                            class="sr-only">(current)</span></a>
+                </li>   
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="{% url 'dcustomerinfo' %}"> My Customers <span
+                            class="sr-only">(current)</span></a>
+                </li>    
+                
+            </ul> -->
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="{% url 'admin:index' %}">Admin Profile <span
+                            class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="{% url 'logout' %}">Logout <span
+                            class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+<!--End Navbar-->

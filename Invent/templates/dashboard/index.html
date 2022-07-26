@@ -2,6 +2,12 @@
 {% block title%} HOME PAGE {% endblock %}
 
 {% block content %}
+
+<div class="container" style="margin-top: 3%;">
+    <div class="jumbotron">
+        <span style="font-size: 50px;" id="hello-msg">Hello, {{ request.user.first_name.title }} {{ request.user.last_name.title }}!</span>
+    </div>
+</div>
    
 
    <!--Graphs-->
@@ -59,10 +65,10 @@
                     var myChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
-                            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                            labels: ['Employees', 'Customers', 'Tasks'],
                             datasets: [{
                                 label: 'Products',
-                                data: [12, 19, 3, 5, 2, 3],
+                                data: [4, 51, 1],
                                 backgroundColor: [
                                     'rgba(255, 99, 132, 1)',
                                     'rgba(54, 162, 235, 1)',
@@ -98,4 +104,8 @@
     </div>
 </div>
 <!--End Graphs-->
+
+
+
+
 {% endblock %}

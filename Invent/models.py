@@ -1,6 +1,9 @@
 from operator import length_hint
 from tkinter import CASCADE, Widget
+from turtle import width
 from django.db import models
+
+
 
 # Create your models here.
 
@@ -63,6 +66,12 @@ SALES_TEAM = (
     ("East North", "East North")
 )
 
+CONV_REN = (
+    ("Conversion","Conversion"),
+    ("Retention", "Retention")
+)
+
+
 class Task(models.Model):
     id = models.IntegerField(null=False)
     task_name = models.CharField(max_length=500, null=False, primary_key=True)
@@ -81,15 +90,17 @@ class Employee(models.Model):
     #employee_ID - automatically comes in
     id = models.IntegerField(null=False, unique=True)
     employee_name = models.CharField(primary_key=True, max_length=200, null=False)
+    manager_name = models.CharField(max_length=200, null=True)
 
     def __str__(self) -> str:
         return self.employee_name
     
 
 class Customer(models.Model):
-    company_id = models.IntegerField(null=False, default=None)
+    company_id = models.IntegerField(null=False, default="None")
     company = models.CharField(max_length=100, null=False, primary_key=True)
     parent = models.CharField(max_length=100, null=True)
+    cr_status = models.CharField(max_length = 100, null = True, choices = CONV_REN, default = None)
 
     def __str__(self) -> str:
         return self.company
@@ -111,7 +122,7 @@ class CustomerInformation(models.Model):
 class AllotTask(models.Model):
     task_name = models.ForeignKey(Task, null=False, on_delete=models.CASCADE)
     employee_name = models.ForeignKey(Employee, null=False, on_delete=models.CASCADE)
-    company = models.ForeignKey(Customer, null=False, default=None, on_delete=models.CASCADE)
+    company = models.ForeignKey(Customer, null=False, default="None", on_delete=models.CASCADE)
     
     def __str__(self) -> str:
         lst = [self.task_name, self.employee_name, self.company] 
@@ -129,14 +140,15 @@ class Team(models.Model):
 
 class BusinessPotential(models.Model):
     company = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    potential = models.IntegerField(null=True)
+    potential = models.DecimalField(null=True, max_digits=100, decimal_places=2, blank=True)
     year = models.IntegerField(null=True)
-    addresable_market_INR = models.IntegerField(null=True)
-    served_market_INR = models.IntegerField(null=True)
-    OEM_oOEM = models.IntegerField(null=True, choices=CATEGORY4)
+    addresable_market_INR = models.DecimalField(null=True, max_digits=100, decimal_places=2, blank=True)
+    total_market_INR = models.DecimalField(null=True, max_digits=100, decimal_places=2, blank=True)
+    served_market_INR = models.DecimalField(null=True, max_digits=100, decimal_places=2, blank=True)
+    OEM_oOEM = models.CharField(choices=CATEGORY4, max_length=5, default="None")
 
     def __str__(self) -> str:
-        return self.company
+        return str(self.company)
 
 
 

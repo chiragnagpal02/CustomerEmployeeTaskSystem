@@ -1,0 +1,48 @@
+{% extends 'partials/base_2.html' %}
+{% load static %}
+{% block title%} Give Customer {% endblock %}
+
+{% block content %}
+
+<div class="container" style="width: 100%; text-align: center; margin-top: 5%;">
+    <marquee behavior="" direction="">
+        <h1>Today's News</h1>
+        <h2>Total Articles : {{ data.totalResults }}</h2>
+    </marquee>
+
+</div>
+
+    <center>
+        {% for i in articles %}
+            <div class="container" style="float: left; width: 27rem; text-align: center;">
+                <div class="row">
+                    <div class="col-md-8">
+
+                        <div class="card rounded shadow-lg m-3" style="width: 25rem; height: 800px;" >
+                            {% if i.urlToImage != None %}
+                                <img src="{{ i.urlToImage }}" class="card-img-top" alt="News Picture" height="300px" width="500px">
+                            {% endif %}
+                            <div class="card-body">
+                                {% if i.author != None %}
+                                    <p class="card-text">{{ i.author }}</p>
+                                {% endif %}
+                                <h5 class="card-title">{{ i.title }}</h5>
+                                <p class="card-title">{{ i.source.name }}</p>
+                                {% if i.description != None %}
+                                    <p class="card-text">{{ i.description }}</p>
+                                {% endif %}
+                                <hr>
+                                <small>Date: {{ i.publishedAt }}</small>
+                                <a href="{{ i.url }}" target="_blank" class="btn btn-success m-1">See News</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </center>
+
+
+
+{% endblock %}
